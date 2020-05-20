@@ -15,9 +15,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SecondaryListItems from './components/SecondaryListItems';
 import MainListItems from './components/MainListItems'
 import { STYLE } from './index.style'
-import {BrowserRouter, Route, Switch, Router} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Dashboard from './components/home/Dashboard';
-import PageNotFound from './components/PageNotFound'
+import PageNotFound from './components/PageNotFound';
+import findRoute from './routing'
 
 const useStyles = STYLE;
 
@@ -74,7 +75,7 @@ export default function App() {
           <List><SecondaryListItems /></List>
         </Drawer>
         <Switch>
-          <Route path="/" exact><Dashboard/></Route>
+          <Route path={findRoute('home').path} exact><Dashboard/></Route>
           <Route path="*">
             <PageNotFound />
           </Route>
