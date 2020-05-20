@@ -6,22 +6,23 @@ import { IconButton, Divider, List, Drawer } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MainListItems from './MainListItems';
 import SecondaryListItems from './SecondaryListItems';
+import * as actions from '../context/actions';
 
 const useStyles = STYLE;
 
 const NavDrawer = (props) => {
-    const { isOpenDrawer, closeDrawer } = useContext(NavContext);
+    const { isOpenDrawer, drawerDispatch } = useContext(NavContext);
     const classes = useStyles();
 
     return (
       <Drawer
         variant="permanent"
         classes={{
-          paper: clsx(classes.drawerPaper, ! isOpenDrawer() && classes.drawerPaperClose),
+          paper: clsx(classes.drawerPaper, ! isOpenDrawer && classes.drawerPaperClose),
         }}
-        open={isOpenDrawer()}>
+        open={isOpenDrawer}>
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={() => closeDrawer()}>
+          <IconButton onClick={() => drawerDispatch({ type: actions.CLOSE_DRAWER })}>
             <ChevronLeftIcon />
           </IconButton>
         </div>

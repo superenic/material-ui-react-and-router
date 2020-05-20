@@ -1,17 +1,12 @@
-import React, {createContext, useState} from 'react'
+import React, {createContext, useReducer} from 'react'
+import { drawerReducer } from '../../context/drawerReducer';
 
 export const NavContext = createContext()
 const NavBarContextProvider = ({ children }) => {
-    const [_isOpenDrawer, _setOpenDrawer] = useState(false);
-    const openDrawer = () => { _setOpenDrawer(true); };
-    const closeDrawer = () => { _setOpenDrawer(false); };
-    const isOpenDrawer = () => _isOpenDrawer;
-    const toggleDrawer = () => { _setOpenDrawer(! isOpenDrawer()); };
+    const [_isOpenDrawer, drawerDispatch] = useReducer(drawerReducer, false)
     const provider = {
-        openDrawer,
-        closeDrawer,
-        isOpenDrawer,
-        toggleDrawer,
+        isOpenDrawer: _isOpenDrawer,
+        drawerDispatch,
     };
 
     return (

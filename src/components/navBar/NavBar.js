@@ -4,23 +4,24 @@ import { AppBar, Toolbar, IconButton, Typography, Badge } from '@material-ui/cor
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { STYLE } from '../../index.style';
+import * as actions from '../../context/actions';
 import clsx from 'clsx';
 
 const useStyles = STYLE;
 
 const NavBar = (props) => {
-    const { toggleDrawer, isOpenDrawer } = useContext(NavContext);
+    const { isOpenDrawer, drawerDispatch } = useContext(NavContext);
     const classes = useStyles();
 
     return (
-        <AppBar position="absolute" className={clsx(classes.appBar, isOpenDrawer() && classes.appBarShift)}>
+        <AppBar position="absolute" className={clsx(classes.appBar, isOpenDrawer && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={() => toggleDrawer()}
-              className={clsx(classes.menuButton, isOpenDrawer() && classes.menuButtonHidden)}
+              onClick={() => drawerDispatch({type: actions.TOGGLE_DRAWER})}
+              className={clsx(classes.menuButton, isOpenDrawer && classes.menuButtonHidden)}
               >
               <MenuIcon />
             </IconButton>

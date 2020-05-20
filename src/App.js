@@ -23,9 +23,7 @@ export default function App() {
           <NavBar />
         <Switch>
           <Route path={findRoute('home').path} exact><Dashboard/></Route>
-          <Route path="*">
-            <PageNotFound />
-          </Route>
+          <Route path="*" component={PageNotFound}></Route>
         </Switch>
       </BrowserRouter>
       </NavBarContextProvider>
