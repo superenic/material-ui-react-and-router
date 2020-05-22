@@ -6,14 +6,14 @@ import { IconButton, Divider, List, Drawer } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MainListItems from './MainListItems';
 import SecondaryListItems from './SecondaryListItems';
-import * as actions from '../context/actions';
+import * as actions from '../context/drawerActions';
 
 const useStyles = STYLE;
 
 const NavDrawer = (props) => {
     const { isOpenDrawer, drawerDispatch } = useContext(NavContext);
     const classes = useStyles();
-
+    
     return (
       <Drawer
         variant="permanent"

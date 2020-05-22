@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
+import FormTesting from '../testing/FormTesting';
 
 export default (props) => {
     const useStyles = STYLE;
@@ -17,7 +18,7 @@ export default (props) => {
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={8} lg={9}>
                         <Paper className={fixedHeightPaper}>
-                            Char
+                            <FormTesting />
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={4} lg={3}>

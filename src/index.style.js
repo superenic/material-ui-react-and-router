@@ -78,7 +78,10 @@ export const STYLE = makeStyles((theme) => {
             flexDirection: 'column',
         },
         fixedHeight: {
-            height: 240,
+            height: 450,
         },
+        w100: {
+            width: '100%'
+        }
     }
 });

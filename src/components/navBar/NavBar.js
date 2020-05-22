@@ -4,7 +4,7 @@ import { AppBar, Toolbar, IconButton, Typography, Badge } from '@material-ui/cor
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { STYLE } from '../../index.style';
-import * as actions from '../../context/actions';
+import * as actions from '../../context/drawerActions';
 import clsx from 'clsx';
 
 const useStyles = STYLE;

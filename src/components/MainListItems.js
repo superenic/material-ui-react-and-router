@@ -10,10 +10,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
 function MainListItems() {
-debugger;
   let history = useHistory();
-
-  debugger;
 
   const link = path => e => {
     history.push(path);

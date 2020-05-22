@@ -1,4 +1,4 @@
-import * as actions from './actions';
+import * as actions from './drawerActions';
 
 export const drawerReducer = (state = false, action) => {
     switch(action.type)
