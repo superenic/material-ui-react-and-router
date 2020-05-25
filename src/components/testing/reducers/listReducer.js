@@ -17,7 +17,7 @@ export default function listReducer( state = initialState.list, action ) {
         case ADD_DESCRIPTION:
             return [...state, {uuid: uuidv4(), description: action.description}];
         case REMOVE_DESCRIPTION:
-            return state.filter((item) => item.uuid !== action.uuid);
+            return state.filter((item) => item.uuid !== action.row.uuid);
         case GET_LIST:
             return action.rows;
         default:

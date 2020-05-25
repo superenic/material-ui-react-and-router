@@ -18,7 +18,7 @@ export default function App() {
     <div className={classes.root}>
       <NavBarContextProvider>
       <BrowserRouter>
-        <CssBaseline />
+          <CssBaseline />
           <NavDrawer />
           <NavBar />
         <Switch>

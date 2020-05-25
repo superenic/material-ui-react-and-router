@@ -19,10 +19,28 @@ const FormTesting = ({ actions, listReducer }) => {
         let data = new FormData(form);
         let description = data.get('description');
 
+        if (description.trim() === '') return;
+
         actions.addDescription(description);
 
         form.querySelector('input[name="description"]').value = '';
     };
+
+    const {loadList} = actions;
+    let refreshData = React.useCallback(
+        (e) => {
+            debugger;
+            loadList();
+        },
+        [loadList],
+    );
+
+    React.useEffect(() => {
+        loadList();
+        return () => {
+            // when component is unounted.
+        }
+    }, [loadList])
 
     return (
         <>
@@ -34,14 +52,18 @@ const FormTesting = ({ actions, listReducer }) => {
                     name="description"
                     placeholder="Create a new row."/>
                     <Button
+                        type="submit"
                         variant="contained"
                         color="primary"
                         size="small"
                         className={ classes.button }
-                        startIcon={ <SaveIcon /> }
-                    >
-                        Save
-                    </Button>
+                        startIcon={ <SaveIcon /> }>
+                    Save
+                </Button>
+                <br/>
+                <div style={{textAlign: 'right'}}>
+                    <Button size="small" onClick={refreshData}>cargar...</Button>
+                </div>
             </form>
             <TableDescription list={ listReducer } />
         </>
@@ -50,6 +72,7 @@ const FormTesting = ({ actions, listReducer }) => {
 
 const mapProp = (state) => {
     const { listReducer } = state;
+
     return {
         listReducer,
     }
@@ -61,6 +84,7 @@ const mapActions = (dispatch) => {
             addDescription: bindActionCreators(actions.listAdd, dispatch),
             listDescription: bindActionCreators(actions.getList, dispatch),
             removeDescription: bindActionCreators(actions.listRemove, dispatch),
+            loadList: bindActionCreators(actions.loadList, dispatch),
         }
     };
 }
