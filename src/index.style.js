@@ -82,6 +82,10 @@ export const STYLE = makeStyles((theme) => {
         },
         w100: {
             width: '100%'
+        },
+        backdrop: {
+            zIndex: theme.zIndex.drawer + 1,
+            color: '#fff',
         }
     }
 });

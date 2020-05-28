@@ -28,10 +28,7 @@ const FormTesting = ({ actions, listReducer }) => {
 
     const {loadList} = actions;
     let refreshData = React.useCallback(
-        (e) => {
-            debugger;
-            loadList();
-        },
+        (e) => loadList(),
         [loadList],
     );
 
@@ -44,6 +41,7 @@ const FormTesting = ({ actions, listReducer }) => {
 
     return (
         <>
+            quesadilla
             <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmit}>
                 <TextField 
                     label="Descripcion" 
