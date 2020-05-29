@@ -11,13 +11,17 @@ import NavBarContextProvider from './components/navBar/NavBarContextProvider';
 import LogIn from "./components/login/LogIn";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { closeSession } from './redux/actions/session';
+import { initSessionByLocal } from './redux/actions/session';
 
 const useStyles = STYLE;
 
-const App = ({session}) => {
+const App = ({ session, actions }) => {
   const classes = useStyles();
   const { refresh_token } = session;
+
+  const { initSessionByLocal } = actions;
+
+  useEffect(() => initSessionByLocal() , [initSessionByLocal]);
 
   return (
     (
@@ -50,7 +54,9 @@ const mapProps = (state) => {
 
 const mapActions = (dispatch) => {
   return {
-    actions: {}
+    actions: {
+      initSessionByLocal: bindActionCreators(initSessionByLocal, dispatch),
+    }
   }
 };
 
