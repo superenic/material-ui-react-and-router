@@ -9,6 +9,6 @@ export default {
         expires_in: null,
         access_token: null,
         refresh_token: null,
-        creted_at: null
+        expire_at: null,
     },
 };

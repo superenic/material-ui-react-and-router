@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 import FormTesting from '../testing/FormTesting';
 
-export default (props) => {
+export default () => {
     const useStyles = STYLE;
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);

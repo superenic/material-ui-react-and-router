@@ -1,5 +1,6 @@
 import { SESSION_LOG_OUT, WEB_LOADED, WEB_LOADING, SESSION_LOG_IN } from "./actionsType";
 import { createToken } from "../../api/apiToken";
+import moment from "moment";
 
 export const closeSession = () => {
     const { localStorage } = window;
@@ -19,11 +20,20 @@ export const openSession = (data) => (dispatch) =>{
         username: data.get('username'),
         password: data.get('password'),
     };
+    const rememberToken = data.get('remember_token');
+    const mm = moment;
 
     return createToken(user)
         .then((response) => {
+            response.data.expire_at = mm().utc().add(response.data.expired_in, 'minutes').toISOString();
+
             dispatch({type: WEB_LOADED});
             dispatch({ type: SESSION_LOG_IN, session: response.data })
+
+            const {localStorage} = window;
+            if ( localStorage && rememberToken ) {
+                localStorage.setItem('session', JSON.stringify({ ...response.data }));
+            }
 
             return response;
         })

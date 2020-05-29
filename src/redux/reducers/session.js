@@ -1,5 +1,6 @@
 import initialState from "../initialState";
 import { SESSION_LOG_IN, SESSION_LOG_OUT } from "../actions/actionsType";
+import Time from "../../components/common/libraries/Time";
 
 /**
  * @param {{loggedIn:boolean}} state 
@@ -16,15 +17,19 @@ export default function session(
                 expires_in: null,
                 access_token: null,
                 refresh_token: null,
+                expire_at: null,
             };
         case SESSION_LOG_IN:
-            const {session} = action;
+            const { session } = action;
+            const { expires_in, expire_at, access_token, refresh_token } = session;
 
             return {
                 ...state,
-                expires_in: session.expires_in,
-                access_token: session.access_token,
-                refresh_token: session.refresh_token,
+                created_at: new Time(new Date()).convertToUtcTimestamp(),
+                expires_in,
+                expire_at,
+                access_token,
+                refresh_token,
             };
         default: return state;
     }

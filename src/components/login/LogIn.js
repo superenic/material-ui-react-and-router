@@ -14,6 +14,8 @@ import { openSession } from '../../redux/actions/session';
 import { Backdrop, CircularProgress, Box } from '@material-ui/core';
 import { STYLE } from "../../index.style";
 import { WEB_LOADED } from '../../redux/actions/actionsType';
+import moment from 'moment';
+import Time from '../common/libraries/Time';
 
 
 const LogIn = ({actions, webLoad, session}) => {
@@ -21,11 +23,10 @@ const LogIn = ({actions, webLoad, session}) => {
   const {openSession} = actions;
   const [errorDescription, setErrorDescription] = useState('');
   const sumbit = useCallback(
-    (htmlFormElement) => {
-      htmlFormElement.preventDefault();
-      const element = htmlFormElement.currentTarget;
-      let formData = new FormData(htmlFormElement.currentTarget);
-      let rememberToken = formData.get('remember_token');
+    (formEvent) => {
+      formEvent.preventDefault();
+      const element = formEvent.currentTarget;
+      let formData = new FormData(formEvent.currentTarget);
 
       openSession(formData)
         .then((request) => {
@@ -33,14 +34,9 @@ const LogIn = ({actions, webLoad, session}) => {
 
           element.reset();
 
-          const {localStorage} = window;
-          if ( localStorage && rememberToken )
-            localStorage.setItem('session', JSON.stringify(request.data));
-
           return request;
         })
         .catch((error) => {
-          debugger;
           const { status, statusText } = error.response;
 
           switch (status) {

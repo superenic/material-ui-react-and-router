@@ -12,13 +12,11 @@ import LogIn from "./components/login/LogIn";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { initSessionByLocal } from './redux/actions/session';
-
-const useStyles = STYLE;
+import ExpireSession from './components/common/ExpireSession';
 
 const App = ({ session, actions }) => {
-  const classes = useStyles();
+  const classes = STYLE();
   const { refresh_token } = session;
-
   const { initSessionByLocal } = actions;
 
   useEffect(() => initSessionByLocal() , [initSessionByLocal]);
@@ -27,16 +25,17 @@ const App = ({ session, actions }) => {
     (
       refresh_token?
         <div className={classes.root}>
+          <ExpireSession />
           <NavBarContextProvider>
-          <BrowserRouter>
-              <CssBaseline />
-              <NavDrawer />
-              <NavBar />
-            <Switch>
-              <Route path={findRoute('home').path} exact><Dashboard/></Route>
-              <Route path="*" component={PageNotFound}></Route>
-            </Switch>
-          </BrowserRouter>
+            <BrowserRouter>
+                <CssBaseline />
+                <NavDrawer />
+                <NavBar />
+              <Switch>
+                <Route path={findRoute('home').path} exact><Dashboard/></Route>
+                <Route path="*" component={PageNotFound}></Route>
+              </Switch>
+            </BrowserRouter>
           </NavBarContextProvider>
         </div>
       :

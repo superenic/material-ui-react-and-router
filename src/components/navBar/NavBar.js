@@ -4,7 +4,6 @@ import { AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem } from '
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { STYLE } from '../../index.style';
-import * as actions from '../../context/drawerActions';
 import clsx from 'clsx';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { connect } from "react-redux";
@@ -13,12 +12,15 @@ import { closeSession } from '../../redux/actions/session';
 
 const useStyles = STYLE;
 
+/**
+ * TODO: make efficients functionalities.
+ */
 const NavBar = ({actions}) => {
     const {closeSession} = actions;
     const { isOpenDrawer, drawerDispatch } = useContext(NavContext);
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const handleMenuClose = () => {
       setAnchorEl(null);
@@ -29,6 +31,7 @@ const NavBar = ({actions}) => {
         e.preventDefault();
         handleMenuClose();
       },
+      []
     );
     const logOutClick = useCallback(
       (e) => {
