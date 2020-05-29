@@ -41,7 +41,6 @@ const FormTesting = ({ actions, listReducer }) => {
 
     return (
         <>
-            quesadilla
             <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmit}>
                 <TextField 
                     label="Descripcion" 
