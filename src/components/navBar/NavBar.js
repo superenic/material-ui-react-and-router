@@ -9,15 +9,18 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { closeSession } from '../../redux/actions/session';
+import { useSnackbar } from 'notistack';
+import  * as context from '../../context/drawerActions';
 
 const useStyles = STYLE;
 
 /**
  * TODO: make efficients functionalities.
  */
-const NavBar = ({actions}) => {
-    const {closeSession} = actions;
+const NavBar = ({actionsRedux, session}) => {
+    const {closeSession} = actionsRedux;
     const { isOpenDrawer, drawerDispatch } = useContext(NavContext);
+    const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [, setMobileMoreAnchorEl] = React.useState(null);
@@ -30,6 +33,7 @@ const NavBar = ({actions}) => {
       (e) => {
         e.preventDefault();
         handleMenuClose();
+        enqueueSnackbar('hello moto', {variant:'success'});
       },
       []
     );
@@ -37,7 +41,9 @@ const NavBar = ({actions}) => {
       (e) => {
         e.preventDefault();
         handleMenuClose();
-        closeSession();
+        closeSession(session).catch((error) => {
+          enqueueSnackbar('oops!, something was wrong, try again.', { variant:'error' });
+        });
       },
     );
     const handleProfileMenuOpen = (event) => {
@@ -71,7 +77,7 @@ const NavBar = ({actions}) => {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={() => drawerDispatch({type: actions.TOGGLE_DRAWER})}
+              onClick={() => {drawerDispatch({type: context.TOGGLE_DRAWER});}}
               className={clsx(classes.menuButton, isOpenDrawer && classes.menuButtonHidden)}
               >
               <MenuIcon />
@@ -102,12 +108,16 @@ const NavBar = ({actions}) => {
 }
 
 const mapProps = (state) => {
-  return {};
+  const {session} = state;
+
+  return {
+    session
+  };
 };
 
 const mapActions = (dispatch) => {
   return {
-    actions: {
+    actionsRedux: {
       closeSession: bindActionCreators(closeSession, dispatch),
     }
   };

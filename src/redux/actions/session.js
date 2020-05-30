@@ -1,13 +1,32 @@
-import { SESSION_LOG_OUT, WEB_LOADED, WEB_LOADING, SESSION_LOG_IN } from "./actionsType";
+import { SESSION_LOG_OUT, WEB_LOADED, WEB_LOADING, SESSION_LOG_IN, WEB_ERROR } from "./actionsType";
 import { createToken } from "../../api/apiToken";
+import { closeToken } from '../../api/apiToken';
 import moment from "moment";
 
-export const closeSession = () => {
-    const { localStorage } = window;
+export const closeSession = (session) => (dispatch) => {
+    dispatch({type: WEB_LOADING});
+    const goodResponse = (response) => {
+        dispatch({type: WEB_LOADED});
+        dispatch({ type: SESSION_LOG_OUT });
 
-    localStorage.removeItem('session');
+        const { localStorage } = window;
+        localStorage.removeItem('session');
 
-    return { type: SESSION_LOG_OUT };
+        return response;
+    };
+
+    return closeToken(session)
+        .then(goodResponse)
+        .catch((error) => {
+            if (error.response.status === 401)
+                return goodResponse(error.response);
+            
+            dispatch({type: WEB_LOADED});
+            dispatch({type: WEB_ERROR, error});
+
+            throw error;
+        });
+
 };
 
 /**
@@ -39,6 +58,7 @@ export const openSession = (data) => (dispatch) =>{
         })
         .catch((error) => {
             dispatch({type: WEB_LOADED});
+            dispatch({type: WEB_ERROR, error});
 
             throw error;
         });

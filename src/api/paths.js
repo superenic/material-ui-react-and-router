@@ -6,7 +6,6 @@ export default {
         headers: {
             'Content-Type': 'application/json',
         },
-        withCredentials: false,
         url: `${urlBase}oauth/token`,
         method: 'post',
         data: {
@@ -17,4 +16,12 @@ export default {
             password: null,
         },
     },
+    closeSession: {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: null,
+        },
+        url: `${urlBase}api/me/close_session`,
+        method: 'delete',
+    }
 };

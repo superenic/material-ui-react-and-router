@@ -7,3 +7,4 @@ export const SESSION_LOG_OUT = 'SESSION_LOG_OUT';
 
 export const WEB_LOADING = 'WEB_LOADING';
 export const WEB_LOADED = 'WEB_LOADED';
+export const WEB_ERROR = 'WEB_ERROR';
