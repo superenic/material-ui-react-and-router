@@ -9,18 +9,16 @@ import Grid from '@material-ui/core/Grid';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 import { openSession } from '../../redux/actions/session';
 import { Backdrop, CircularProgress, Box } from '@material-ui/core';
-import { STYLE } from "../../index.style";
+import { STYLE } from '../../index.style';
 import { WEB_LOADED } from '../../redux/actions/actionsType';
-import moment from 'moment';
-import Time from '../common/libraries/Time';
+import findRoute from '../../routing';
 
-
-const LogIn = ({actions, webLoad, session}) => {
+const LogIn = ({ actions, webLoad }) => {
   const classes = STYLE();
-  const {openSession} = actions;
+  const { openSession } = actions;
   const [errorDescription, setErrorDescription] = useState('');
   const sumbit = useCallback(
     (formEvent) => {
@@ -55,85 +53,90 @@ const LogIn = ({actions, webLoad, session}) => {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <div className={classes.paper}>
-          <form className={classes.form} onSubmit={sumbit} method="post">
+          <form className={classes.form} onSubmit={sumbit} method='post'>
             <TextField
-              variant="outlined"
-              margin="normal"
+              variant='outlined'
+              margin='normal'
               required
               fullWidth
-              label="username"
-              name="username"
-              autoComplete="email"
+              label='username'
+              name='username'
+              autoComplete='email'
               autoFocus
             />
             <TextField
-              variant="outlined"
-              margin="normal"
+              variant='outlined'
+              margin='normal'
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password'
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" name="remember_token" />}
-              label="Remember me"
+              control={
+                <Checkbox
+                  value='remember'
+                  color='primary'
+                  name='remember_token'
+                />
+              }
+              label='Remember me'
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+              variant='contained'
+              color='primary'
+              className={classes.submit}>
               Log in
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href={findRoute('forgotPassword').path} variant='body2'>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href='#' variant='body2'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </form>
         </div>
-        <Box component="div" hidden={errorDescription.length <= 0}>
-          <Alert severity="error" display="none">
+        <Box component='div' hidden={errorDescription.length <= 0}>
+          <Alert severity='error' display='none'>
             <AlertTitle>Error</AlertTitle>
             {errorDescription}
           </Alert>
         </Box>
       </Container>
-      <Backdrop className={classes.backdrop} open={ (webLoad !== WEB_LOADED) }>
-        <CircularProgress color="inherit" />
+      <Backdrop className={classes.backdrop} open={webLoad !== WEB_LOADED}>
+        <CircularProgress color='inherit' />
       </Backdrop>
     </>
   );
-}
+};
 
 const mapsProps = (state) => {
   return {
     session: state.session,
     webLoad: state.webLoad,
-  }
+  };
 };
 
 const mapsActions = (dispatch) => {
   return {
     actions: {
-      openSession: bindActionCreators(openSession, dispatch)
-    }
-  }
-}
+      openSession: bindActionCreators(openSession, dispatch),
+    },
+  };
+};
 
 export default connect(mapsProps, mapsActions)(LogIn);
