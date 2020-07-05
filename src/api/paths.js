@@ -45,4 +45,13 @@ export default {
       clave: null,
     },
   },
+  ChangePasswordWithToken: {
+    url: `${urlBase}api/me/cambiar_contrasena_con_clave`,
+    method: 'post',
+    data: {
+      clave: '',
+      celular: '',
+      password: '',
+    },
+  },
 };

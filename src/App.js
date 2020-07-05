@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { initSessionByLocal } from './redux/actions/session';
 import ExpireSession from './components/common/ExpireSession';
-import ForgotPassword from './components/forgotPassword';
+import ActiveAccount from './components/forgotPassword/ActiveAccount';
 
 const App = ({ session, actions }) => {
   const classes = STYLE();
@@ -43,7 +43,7 @@ const App = ({ session, actions }) => {
     <BrowserRouter>
       <Switch>
         <Route path={findRoute('forgotPassword').path} exact>
-          <ForgotPassword />
+          <ActiveAccount />
         </Route>
         <Route path='*' component={LogIn}></Route>
       </Switch>

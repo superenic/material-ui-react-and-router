@@ -28,3 +28,7 @@ export const multiFactorAutentificationToken = (data) => {
 export const verificarTokenApi = (data) => {
   return Axios({ ...api.verificarToken, data: { ...data } });
 };
+
+export const changePasswordWithTokenApi = (data) => {
+  return Axios({ ...api.ChangePasswordWithToken, data: { ...data } });
+};

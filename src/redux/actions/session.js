@@ -9,6 +9,7 @@ import {
   createToken,
   multiFactorAutentificationToken as multiFactorAutentificationTokenApi,
   verificarTokenApi,
+  changePasswordWithTokenApi,
 } from '../../api/apiToken';
 import { closeToken } from '../../api/apiToken';
 import moment from 'moment';
@@ -131,6 +132,11 @@ export const verificarToken = (formData) => (dispatch) => {
     });
 };
 
+/**
+ *TODO: pending by data.
+ *
+ * @param {FormData} formData
+ */
 export const activeMultifactorAuthentification = (formData) => (dispatch) => {
   const data = {
     celular: formData.get('phoneNumber'),
@@ -138,4 +144,27 @@ export const activeMultifactorAuthentification = (formData) => (dispatch) => {
   };
 
   dispatch({ type: WEB_LOADING });
+};
+
+export const changePasswordWithToken = (formData) => (dispatch) => {
+  const data = {
+    celular: formData.get('phoneNumber'),
+    clave: formData.get('token'),
+    password: formData.get('password'),
+  };
+
+  dispatch({ type: WEB_LOADING });
+
+  return changePasswordWithTokenApi(data)
+    .then((response) => {
+      dispatch({ type: WEB_LOADED });
+
+      return response;
+    })
+    .catch((error) => {
+      dispatch({ type: WEB_LOADED });
+      dispatch({ type: WEB_ERROR, error });
+
+      throw error;
+    });
 };
